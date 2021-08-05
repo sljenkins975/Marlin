@@ -27,6 +27,7 @@
 
 #include "tft_lvgl_configuration.h"
 #include "draw_ready_print.h"
+#include "mks_hardware_test.h"
 #include "draw_ui.h"
 #include "pic_manager.h"
 #include <lvgl.h>
@@ -35,6 +36,7 @@
 #include "../../../module/temperature.h"
 #include "../../../sd/cardreader.h"
 
+<<<<<<< HEAD:Marlin/src/lcd/extui/mks_ui/mks_hardware.cpp
 #if ENABLED(MKS_TEST)
 
   #include "mks_hardware.h"
@@ -78,14 +80,26 @@
   #define ESTATE(S) (READ(S##_PIN) != S##_ENDSTOP_INVERTING)
 
   void test_gpio_readlevel_L() {
+=======
+uint8_t pw_det_sta, pw_off_sta, mt_det_sta, mt_det3_sta;
+#if PIN_EXISTS(MT_DET_2)
+  uint8_t mt_det2_sta;
+#endif
+uint8_t endstopx1_sta, endstopx2_sta, endstopy1_sta, endstopy2_sta, endstopz1_sta, endstopz2_sta;
+void test_gpio_readlevel_L() {
+  #if ENABLED(MKS_TEST)
+    volatile uint32_t itest;
+>>>>>>> parent of f8e1eb2dc6 (Merge remote-tracking branch 'upstream/2.0.x' into 2.0.x):Marlin/src/lcd/extui/mks_ui/mks_hardware_test.cpp
     WRITE(WIFI_IO0_PIN, HIGH);
-    delay(10);
-    pw_det_sta = (READ(MKS_TEST_POWER_LOSS_PIN) == LOW);
-    pw_off_sta = (READ(MKS_TEST_PS_ON_PIN) == LOW);
-    mt_det_sta = (READ(MT_DET_1_PIN) == LOW);
+    itest = 10000;
+    while (itest--);
+    pw_det_sta = (READ(MKS_TEST_POWER_LOSS_PIN) == 0);
+    pw_off_sta = (READ(MKS_TEST_PS_ON_PIN) == 0);
+    mt_det_sta = (READ(MT_DET_1_PIN) == 0);
     #if PIN_EXISTS(MT_DET_2)
-      mt_det2_sta = (READ(MT_DET_2_PIN) == LOW);
+      mt_det2_sta = (READ(MT_DET_2_PIN) == 0);
     #endif
+<<<<<<< HEAD:Marlin/src/lcd/extui/mks_ui/mks_hardware.cpp
     #if HAS_X_MIN
       endstopx1_sta = ESTATE(X_MIN);
     #elif HAS_X_MAX
@@ -117,16 +131,28 @@
       endstopz2_sta = ESTATE(Z2_MAX);
     #endif
   }
+=======
+    endstopx1_sta = (READ(X_MIN_PIN) == 0);
+    endstopy1_sta = (READ(Y_MIN_PIN) == 0);
+    endstopz1_sta = (READ(Z_MIN_PIN) == 0);
+    endstopz2_sta = (READ(Z_MAX_PIN) == 0);
+  #endif
+}
+>>>>>>> parent of f8e1eb2dc6 (Merge remote-tracking branch 'upstream/2.0.x' into 2.0.x):Marlin/src/lcd/extui/mks_ui/mks_hardware_test.cpp
 
-  void test_gpio_readlevel_H() {
+void test_gpio_readlevel_H() {
+  #if ENABLED(MKS_TEST)
+    volatile uint32_t itest;
     WRITE(WIFI_IO0_PIN, LOW);
-    delay(10);
-    pw_det_sta = (READ(MKS_TEST_POWER_LOSS_PIN) == HIGH);
-    pw_off_sta = (READ(MKS_TEST_PS_ON_PIN) == HIGH);
-    mt_det_sta = (READ(MT_DET_1_PIN) == HIGH);
+    itest = 10000;
+    while (itest--);
+    pw_det_sta = (READ(MKS_TEST_POWER_LOSS_PIN) == 1);
+    pw_off_sta = (READ(MKS_TEST_PS_ON_PIN) == 1);
+    mt_det_sta = (READ(MT_DET_1_PIN) == 1);
     #if PIN_EXISTS(MT_DET_2)
-      mt_det2_sta = (READ(MT_DET_2_PIN) == HIGH);
+      mt_det2_sta = (READ(MT_DET_2_PIN) == 1);
     #endif
+<<<<<<< HEAD:Marlin/src/lcd/extui/mks_ui/mks_hardware.cpp
     #if HAS_X_MIN
       endstopx1_sta = !ESTATE(X_MIN);
     #elif HAS_X_MAX
@@ -161,6 +187,21 @@
 
   void init_test_gpio() {
     endstops.init();
+=======
+    endstopx1_sta = (READ(X_MIN_PIN) == 1);
+    endstopy1_sta = (READ(Y_MIN_PIN) == 1);
+    endstopz1_sta = (READ(Z_MIN_PIN) == 1);
+    endstopz2_sta = (READ(Z_MAX_PIN) == 1);
+  #endif
+}
+
+void init_test_gpio() {
+  #ifdef MKS_TEST
+    SET_INPUT_PULLUP(X_MIN_PIN);
+    SET_INPUT_PULLUP(Y_MIN_PIN);
+    SET_INPUT_PULLUP(Z_MIN_PIN);
+    SET_INPUT_PULLUP(Z_MAX_PIN);
+>>>>>>> parent of f8e1eb2dc6 (Merge remote-tracking branch 'upstream/2.0.x' into 2.0.x):Marlin/src/lcd/extui/mks_ui/mks_hardware_test.cpp
 
     SET_OUTPUT(WIFI_IO0_PIN);
 
@@ -175,6 +216,7 @@
     SET_INPUT_PULLUP(MKS_TEST_PS_ON_PIN);
     SET_INPUT_PULLUP(SERVO0_PIN);
 
+<<<<<<< HEAD:Marlin/src/lcd/extui/mks_ui/mks_hardware.cpp
     OUT_WRITE(X_ENABLE_PIN, LOW);
     #if HAS_Y_AXIS
       OUT_WRITE(Y_ENABLE_PIN, LOW);
@@ -187,9 +229,25 @@
     #endif
     #if HAS_MULTI_EXTRUDER && DISABLED(MKS_HARDWARE_TEST_ONLY_E0)
       OUT_WRITE(E1_ENABLE_PIN, LOW);
+=======
+    SET_OUTPUT(X_ENABLE_PIN);
+    SET_OUTPUT(Y_ENABLE_PIN);
+    SET_OUTPUT(Z_ENABLE_PIN);
+    SET_OUTPUT(E0_ENABLE_PIN);
+    #if !MB(MKS_ROBIN_E3P)
+      SET_OUTPUT(E1_ENABLE_PIN);
     #endif
 
-    #if ENABLED(MKS_HARDWARE_TEST_ONLY_E0)
+    WRITE(X_ENABLE_PIN, LOW);
+    WRITE(Y_ENABLE_PIN, LOW);
+    WRITE(Z_ENABLE_PIN, LOW);
+    WRITE(E0_ENABLE_PIN, LOW);
+    #if !MB(MKS_ROBIN_E3P)
+      WRITE(E1_ENABLE_PIN, LOW);
+>>>>>>> parent of f8e1eb2dc6 (Merge remote-tracking branch 'upstream/2.0.x' into 2.0.x):Marlin/src/lcd/extui/mks_ui/mks_hardware_test.cpp
+    #endif
+
+    #if MB(MKS_ROBIN_E3P)
       SET_INPUT_PULLUP(PA1);
       SET_INPUT_PULLUP(PA3);
       SET_INPUT_PULLUP(PC2);
@@ -198,47 +256,90 @@
       SET_INPUT_PULLUP(PE6);
       SET_INPUT_PULLUP(PE7);
     #endif
-  }
+  #endif
+}
 
-  void mks_test_beeper() {
+void mks_test_beeper() {
+  #ifdef MKS_TEST
     WRITE(BEEPER_PIN, HIGH);
     delay(100);
     WRITE(BEEPER_PIN, LOW);
     delay(100);
-  }
+  #endif
+}
 
-  #if ENABLED(SDSUPPORT)
+void mks_gpio_test() {
+  #if ENABLED(MKS_TEST)
+    init_test_gpio();
 
-    void mks_gpio_test() {
-      init_test_gpio();
+    test_gpio_readlevel_L();
+    test_gpio_readlevel_H();
+    test_gpio_readlevel_L();
+    if ((pw_det_sta == 1)
+        && (pw_off_sta == 1)
+        && (mt_det_sta == 1)
+      #if PIN_EXISTS(MT_DET_2)
+        && (mt_det2_sta == 1)
+      #endif
+      #if MB(MKS_ROBIN_E3P)
+        && (READ(PA1) == 0)
+        && (READ(PA3) == 0)
+        && (READ(PC2) == 0)
+        && (READ(PD8) == 0)
+        && (READ(PE5) == 0)
+        && (READ(PE6) == 0)
+        && (READ(PE7) == 0)
+      #endif
+    )
+      disp_det_ok();
+    else
+      disp_det_error();
 
-      test_gpio_readlevel_L();
-      test_gpio_readlevel_H();
-      test_gpio_readlevel_L();
-      if (pw_det_sta && pw_off_sta && mt_det_sta
-        #if PIN_EXISTS(MT_DET_2)
-          && mt_det2_sta
-        #endif
-        #if ENABLED(MKS_HARDWARE_TEST_ONLY_E0)
-          && (READ(PA1) == LOW)
-          && (READ(PA3) == LOW)
-          && (READ(PC2) == LOW)
-          && (READ(PD8) == LOW)
-          && (READ(PE5) == LOW)
-          && (READ(PE6) == LOW)
-          && (READ(PE7) == LOW)
-        #endif
-      )
-        disp_det_ok();
-      else
-        disp_det_error();
+    if ( (endstopx1_sta == 1)
+      && (endstopy1_sta == 1)
+      && (endstopz1_sta == 1)
+      && (endstopz2_sta == 1)
+    )
+      disp_Limit_ok();
+    else
+      disp_Limit_error();
+    #endif
+}
 
-      if (endstopx1_sta && endstopy1_sta && endstopz1_sta && endstopz2_sta)
-        disp_Limit_ok();
-      else
-        disp_Limit_error();
+void mks_hardware_test() {
+  #if ENABLED(MKS_TEST)
+    if (millis() % 2000 < 1000) {
+      WRITE(X_DIR_PIN, LOW);
+      WRITE(Y_DIR_PIN, LOW);
+      WRITE(Z_DIR_PIN, LOW);
+      WRITE(E0_DIR_PIN, LOW);
+      #if !MB(MKS_ROBIN_E3P)
+        WRITE(E1_DIR_PIN, LOW);
+      #endif
+      thermalManager.fan_speed[0] = 255;
+      #if !MB(MKS_ROBIN_E3P)
+        WRITE(HEATER_1_PIN, HIGH); // HE1
+      #endif
+      WRITE(HEATER_0_PIN, HIGH); // HE0
+      WRITE(HEATER_BED_PIN, HIGH); // HOT-BED
+    }
+    else {
+      WRITE(X_DIR_PIN, HIGH);
+      WRITE(Y_DIR_PIN, HIGH);
+      WRITE(Z_DIR_PIN, HIGH);
+      WRITE(E0_DIR_PIN, HIGH);
+      #if !MB(MKS_ROBIN_E3P)
+        WRITE(E1_DIR_PIN, HIGH);
+      #endif
+      thermalManager.fan_speed[0] = 0;
+      #if !MB(MKS_ROBIN_E3P)
+        WRITE(HEATER_1_PIN, LOW); // HE1
+      #endif
+      WRITE(HEATER_0_PIN, LOW); // HE0
+      WRITE(HEATER_BED_PIN, LOW); // HOT-BED
     }
 
+<<<<<<< HEAD:Marlin/src/lcd/extui/mks_ui/mks_hardware.cpp
     void mks_hardware_test() {
       if (millis() % 2000 < 1000) {
         thermalManager.fan_speed[0] = 255;
@@ -299,11 +400,22 @@
 
       if (disp_state == PRINT_READY_UI)
         mks_disp_test();
+=======
+    if ( (endstopx1_sta == 1) && (endstopx2_sta == 1)
+      && (endstopy1_sta == 1) && (endstopy2_sta == 1)
+      && (endstopz1_sta == 1) && (endstopz2_sta == 1)
+    ) {
+      // nothing here
+    }
+    else {
+>>>>>>> parent of f8e1eb2dc6 (Merge remote-tracking branch 'upstream/2.0.x' into 2.0.x):Marlin/src/lcd/extui/mks_ui/mks_hardware_test.cpp
     }
 
-  #endif
+    if (disp_state == PRINT_READY_UI)
+      mks_disp_test();
 
-#endif // MKS_TEST
+  #endif
+}
 
 static const uint16_t ASCII_Table_16x24[] PROGMEM = {
   // Space ' '
@@ -717,9 +829,10 @@ void disp_assets_update_progress(const char *msg) {
   disp_string(100, 165, buf, 0xFFFF, 0x0000);
 }
 
-#if BOTH(MKS_TEST, SDSUPPORT)
-  uint8_t mks_test_flag = 0;
-  const char *MKSTestPath = "MKS_TEST";
+uint8_t mks_test_flag = 0;
+const char *MKSTestPath = "MKS_TEST";
+
+#if ENABLED(SDSUPPORT)
   void mks_test_get() {
     SdFile dir, root = card.getroot();
     if (dir.open(&root, MKSTestPath, O_RDONLY))

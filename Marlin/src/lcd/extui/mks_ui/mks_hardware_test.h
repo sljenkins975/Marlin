@@ -21,10 +21,9 @@
  */
 #pragma once
 
-#include "../../../inc/MarlinConfigPre.h"
-
 #include <lvgl.h>
 
+<<<<<<< HEAD:Marlin/src/lcd/extui/mks_ui/mks_hardware.h
 // Functions for MKS_TEST
 #if BOTH(MKS_TEST, SDSUPPORT)
   void mks_hardware_test();
@@ -36,6 +35,13 @@
 #endif
 
 // String display and assets
+=======
+void mks_gpio_test();
+void disp_char_1624(uint16_t x, uint16_t y, uint8_t c, uint16_t charColor, uint16_t bkColor);
+>>>>>>> parent of f8e1eb2dc6 (Merge remote-tracking branch 'upstream/2.0.x' into 2.0.x):Marlin/src/lcd/extui/mks_ui/mks_hardware_test.h
 void disp_string(uint16_t x, uint16_t y, const char * string, uint16_t charColor, uint16_t bkColor);
+void mks_hardware_test();
 void disp_assets_update();
 void disp_assets_update_progress(const char *msg);
+void mks_test_get();
+extern uint8_t mks_test_flag;

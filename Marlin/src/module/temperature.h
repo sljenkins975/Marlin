@@ -340,16 +340,16 @@ class Temperature {
       static const celsius_t hotend_maxtemp[HOTENDS];
       static inline celsius_t hotend_max_target(const uint8_t e) { return hotend_maxtemp[e] - (HOTEND_OVERSHOOT); }
     #endif
-    #if HAS_HEATED_BED
+    #if ENABLED(HAS_HEATED_BED)
       static bed_info_t temp_bed;
     #endif
-    #if HAS_TEMP_PROBE
+    #if ENABLED(HAS_TEMP_PROBE)
       static probe_info_t temp_probe;
     #endif
-    #if HAS_TEMP_CHAMBER
+    #if ENABLED(HAS_TEMP_CHAMBER)
       static chamber_info_t temp_chamber;
     #endif
-    #if HAS_TEMP_COOLER
+    #if ENABLED(HAS_TEMP_COOLER)
       static cooler_info_t temp_cooler;
     #endif
     #if HAS_TEMP_REDUNDANT
@@ -428,15 +428,6 @@ class Temperature {
 
       static heater_idle_t heater_idle[NR_HEATER_IDLE];
 
-    #endif // HEATER_IDLE_TIMER
-
-    #if HAS_ADC_BUTTONS
-      static uint32_t current_ADCKey_raw;
-      static uint16_t ADCKey_count;
-    #endif
-
-    #if ENABLED(PID_EXTRUSION_SCALING)
-      static int16_t lpq_len;
     #endif
 
   private:
@@ -450,7 +441,7 @@ class Temperature {
       static lpq_ptr_t lpq_ptr;
     #endif
 
-    #if HAS_HOTEND
+    #if ENABLED(HAS_HOTEND)
       static temp_range_t temp_range[HOTENDS];
     #endif
 
@@ -486,7 +477,7 @@ class Temperature {
       static millis_t preheat_end_time[HOTENDS];
     #endif
 
-    #if HAS_AUTO_FAN
+    #if ENABLED(HAS_AUTO_FAN)
       static millis_t next_auto_fan_check_ms;
     #endif
 
@@ -495,6 +486,15 @@ class Temperature {
     #endif
 
   public:
+    #if HAS_ADC_BUTTONS
+      static uint32_t current_ADCKey_raw;
+      static uint16_t ADCKey_count;
+    #endif
+
+    #if ENABLED(PID_EXTRUSION_SCALING)
+      static int16_t lpq_len;
+    #endif
+
     /**
      * Instance Methods
      */
@@ -915,12 +915,12 @@ class Temperature {
       #else
         #define READ_MAX_TC(N) read_max_tc()
       #endif
-      static int16_t read_max_tc(TERN_(HAS_MULTI_MAX_TC, const uint8_t hindex=0));
+      static int read_max_tc(TERN_(HAS_MULTI_MAX_TC, const uint8_t hindex=0));
     #endif
 
     static void checkExtruderAutoFans();
 
-    #if HAS_HOTEND
+    #if ENABLED(HAS_HOTEND)
       static float get_pid_output_hotend(const uint8_t e);
     #endif
     #if ENABLED(PIDTEMPBED)

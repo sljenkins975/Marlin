@@ -307,7 +307,7 @@ void unified_bed_leveling::G29() {
 
   const uint8_t p_val = parser.byteval('P');
   const bool may_move = p_val == 1 || p_val == 2 || p_val == 4 || parser.seen_test('J');
-  #if HAS_MULTI_HOTEND
+  #if ENABLED(HAS_MULTI_HOTEND)
     const uint8_t old_tool_index = active_extruder;
   #endif
 
@@ -916,11 +916,11 @@ void set_message_with_feedback(PGM_P const msg_P) {
       if (do_ubl_mesh_map) display_map(param.T_map_type);   // Show user where we're probing
 
       if (parser.seen_test('B')) {
-        SERIAL_ECHOPGM("Place Shim & Measure");
+        SERIAL_ECHOPGM_P(GET_TEXT(MSG_UBL_BC_INSERT));
         LCD_MESSAGEPGM(MSG_UBL_BC_INSERT);
       }
       else {
-        SERIAL_ECHOPGM("Measure");
+        SERIAL_ECHOPGM_P(GET_TEXT(MSG_UBL_BC_INSERT2));
         LCD_MESSAGEPGM(MSG_UBL_BC_INSERT2);
       }
 

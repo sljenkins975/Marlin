@@ -35,7 +35,7 @@
 #include "../../ui_api.h"
 #include "../../../marlinui.h"
 
-#if HAS_STEALTHCHOP
+#if ENABLED(HAS_STEALTHCHOP)
   #include "../../../../module/stepper/trinamic.h"
 #endif
 
