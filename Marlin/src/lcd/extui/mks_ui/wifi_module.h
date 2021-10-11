@@ -136,7 +136,7 @@ typedef enum {
 
 typedef enum {
   TRANSFER_IDLE,
-  TRANSFERING,
+  TRANSFERRING,
   TRANSFER_STORE,
 } TRANSFER_STATE;
 extern volatile TRANSFER_STATE esp_state;
