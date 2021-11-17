@@ -265,17 +265,12 @@
 
 #if EITHER(PARKING_EXTRUDER, MAGNETIC_PARKING_EXTRUDER)
 
-<<<<<<< HEAD
 #define PARKING_EXTRUDER_PARKING_X \
   {                                \
     -78, 184                       \
   }                                      // X positions for parking the extruders
 #define PARKING_EXTRUDER_GRAB_DISTANCE 1 // (mm) Distance to move beyond the parking point to grab the extruder
 //#define MANUAL_SOLENOID_CONTROL                   // Manual control of docking solenoids with M380 S / M381
-=======
-  #define PARKING_EXTRUDER_PARKING_X { -78, 184 }     // X positions for parking the extruders
-  #define PARKING_EXTRUDER_GRAB_DISTANCE 1            // (mm) Distance to move beyond the parking point to grab the extruder
->>>>>>> 2.0.x
 
 #if ENABLED(PARKING_EXTRUDER)
 
@@ -362,7 +357,6 @@
  */
 //#define MIXING_EXTRUDER
 #if ENABLED(MIXING_EXTRUDER)
-<<<<<<< HEAD
 #define MIXING_STEPPERS 2       // Number of steppers in your mixing extruder
 #define MIXING_VIRTUAL_TOOLS 16 // Use the Virtual Tool method with M163 and M164
 //#define DIRECT_MIXING_IN_G1    // Allow ABCDHI mix factors in G1 movement commands
@@ -370,16 +364,6 @@
 #if ENABLED(GRADIENT_MIX)
 //#define GRADIENT_VTOOL       // Add M166 T to use a V-tool index as a Gradient alias
 #endif
-=======
-  #define MIXING_STEPPERS 2        // Number of steppers in your mixing extruder
-  #define MIXING_VIRTUAL_TOOLS 16  // Use the Virtual Tool method with M163 and M164
-  //#define DIRECT_MIXING_IN_G1    // Allow ABCDHI mix factors in G1 movement commands
-  //#define GRADIENT_MIX           // Support for gradient mixing with M166 and LCD
-  //#define MIXING_PRESETS         // Assign 8 default V-tool presets for 2 or 3 MIXING_STEPPERS
-  #if ENABLED(GRADIENT_MIX)
-    //#define GRADIENT_VTOOL       // Add M166 T to use a V-tool index as a Gradient alias
-  #endif
->>>>>>> 2.0.x
 #endif
 
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
@@ -401,7 +385,6 @@
 //#define PSU_NAME "Power Supply"
 
 #if ENABLED(PSU_CONTROL)
-<<<<<<< HEAD
 //#define PS_OFF_CONFIRM          // Confirm dialog when power off
 //#define PS_OFF_SOUND            // Beep 1s when power off
 #define PSU_ACTIVE_STATE LOW // Set 'LOW' for ATX, 'HIGH' for X-Box
@@ -425,32 +408,6 @@
 #define POWER_TIMEOUT 30 // (s) Turn off power if the machine is idle for this duration
 //#define POWER_OFF_DELAY          60 // (s) Delay of poweroff after M81 command. Useful to let fans run for extra time.
 #endif
-=======
-  //#define MKS_PWC                 // Using the MKS PWC add-on
-  //#define PS_OFF_CONFIRM          // Confirm dialog when power off
-  //#define PS_OFF_SOUND            // Beep 1s when power off
-  #define PSU_ACTIVE_STATE LOW      // Set 'LOW' for ATX, 'HIGH' for X-Box
-
-  //#define PSU_DEFAULT_OFF         // Keep power off until enabled directly with M80
-  //#define PSU_POWERUP_DELAY 250   // (ms) Delay for the PSU to warm up to full power
-
-  //#define PSU_POWERUP_GCODE  "M355 S1"  // G-code to run after power-on (e.g., case light on)
-  //#define PSU_POWEROFF_GCODE "M355 S0"  // G-code to run before power-off (e.g., case light off)
-
-  //#define AUTO_POWER_CONTROL      // Enable automatic control of the PS_ON pin
-  #if ENABLED(AUTO_POWER_CONTROL)
-    #define AUTO_POWER_FANS         // Turn on PSU if fans need power
-    #define AUTO_POWER_E_FANS
-    #define AUTO_POWER_CONTROLLERFAN
-    #define AUTO_POWER_CHAMBER_FAN
-    #define AUTO_POWER_COOLER_FAN
-    //#define AUTO_POWER_E_TEMP        50 // (°C) Turn on PSU if any extruder is over this temperature
-    //#define AUTO_POWER_CHAMBER_TEMP  30 // (°C) Turn on PSU if the chamber is over this temperature
-    //#define AUTO_POWER_COOLER_TEMP   26 // (°C) Turn on PSU if the cooler is over this temperature
-    #define POWER_TIMEOUT              30 // (s) Turn off power if the machine is idle for this duration
-    //#define POWER_OFF_DELAY          60 // (s) Delay of poweroff after M81 command. Useful to let fans run for extra time.
-  #endif
->>>>>>> 2.0.x
 #endif
 
 //===========================================================================
@@ -595,15 +552,9 @@
  * For selecting source/target use: COOLER, PROBE, BOARD, CHAMBER, BED, E0, E1, E2, E3, E4, E5, E6, E7
  */
 #if TEMP_SENSOR_REDUNDANT
-<<<<<<< HEAD
 #define TEMP_SENSOR_REDUNDANT_SOURCE 1    // The sensor that will provide the redundant reading.
 #define TEMP_SENSOR_REDUNDANT_TARGET 0    // The sensor that we are providing a redundant reading for.
 #define TEMP_SENSOR_REDUNDANT_MAX_DIFF 10 // (°C) Temperature difference that will trigger a print abort.
-=======
-  #define TEMP_SENSOR_REDUNDANT_SOURCE    E1  // The sensor that will provide the redundant reading.
-  #define TEMP_SENSOR_REDUNDANT_TARGET    E0  // The sensor that we are providing a redundant reading for.
-  #define TEMP_SENSOR_REDUNDANT_MAX_DIFF  10  // (°C) Temperature difference that will trigger a print abort.
->>>>>>> 2.0.x
 #endif
 
 // Below this temperature the heater will be switched off
@@ -655,7 +606,6 @@
 #define PID_K1 0.95      // Smoothing factor within any PID loop
 
 #if ENABLED(PIDTEMP)
-<<<<<<< HEAD
 //#define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
 //#define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
 //#define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
@@ -683,24 +633,6 @@
 #define DEFAULT_Ki 3.35
 #define DEFAULT_Kd 68.34
 #endif
-=======
-  //#define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
-  //#define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
-  //#define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
-                                  // Set/get with gcode: M301 E[extruder number, 0-2]
-
-  #if ENABLED(PID_PARAMS_PER_HOTEND)
-    // Specify up to one value per hotend here, according to your setup.
-    // If there are fewer values, the last one applies to the remaining hotends.
-    #define DEFAULT_Kp_LIST {  22.20,  22.20 }
-    #define DEFAULT_Ki_LIST {   1.08,   1.08 }
-    #define DEFAULT_Kd_LIST { 114.00, 114.00 }
-  #else
-    #define DEFAULT_Kp  22.20
-    #define DEFAULT_Ki   1.08
-    #define DEFAULT_Kd 114.00
-  #endif
->>>>>>> 2.0.x
 #endif // PIDTEMP
 
 //===========================================================================
@@ -890,22 +822,6 @@
 // Enable pullup for all endstops to prevent a floating state
 #define ENDSTOPPULLUPS
 #if DISABLED(ENDSTOPPULLUPS)
-<<<<<<< HEAD
-// Disable ENDSTOPPULLUPS to set pullups individually
-//#define ENDSTOPPULLUP_XMAX
-//#define ENDSTOPPULLUP_YMAX
-//#define ENDSTOPPULLUP_ZMAX
-//#define ENDSTOPPULLUP_IMAX
-//#define ENDSTOPPULLUP_JMAX
-//#define ENDSTOPPULLUP_KMAX
-//#define ENDSTOPPULLUP_XMIN
-//#define ENDSTOPPULLUP_YMIN
-//#define ENDSTOPPULLUP_ZMIN
-//#define ENDSTOPPULLUP_IMIN
-//#define ENDSTOPPULLUP_JMIN
-//#define ENDSTOPPULLUP_KMIN
-//#define ENDSTOPPULLUP_ZMIN_PROBE
-=======
   // Disable ENDSTOPPULLUPS to set pullups individually
   //#define ENDSTOPPULLUP_XMIN
   //#define ENDSTOPPULLUP_YMIN
@@ -920,28 +836,11 @@
   //#define ENDSTOPPULLUP_JMAX
   //#define ENDSTOPPULLUP_KMAX
   //#define ENDSTOPPULLUP_ZMIN_PROBE
->>>>>>> 2.0.x
 #endif
 
 // Enable pulldown for all endstops to prevent a floating state
 //#define ENDSTOPPULLDOWNS
 #if DISABLED(ENDSTOPPULLDOWNS)
-<<<<<<< HEAD
-// Disable ENDSTOPPULLDOWNS to set pulldowns individually
-//#define ENDSTOPPULLDOWN_XMAX
-//#define ENDSTOPPULLDOWN_YMAX
-//#define ENDSTOPPULLDOWN_ZMAX
-//#define ENDSTOPPULLDOWN_IMAX
-//#define ENDSTOPPULLDOWN_JMAX
-//#define ENDSTOPPULLDOWN_KMAX
-//#define ENDSTOPPULLDOWN_XMIN
-//#define ENDSTOPPULLDOWN_YMIN
-//#define ENDSTOPPULLDOWN_ZMIN
-//#define ENDSTOPPULLDOWN_IMIN
-//#define ENDSTOPPULLDOWN_JMIN
-//#define ENDSTOPPULLDOWN_KMIN
-//#define ENDSTOPPULLDOWN_ZMIN_PROBE
-=======
   // Disable ENDSTOPPULLDOWNS to set pulldowns individually
   //#define ENDSTOPPULLDOWN_XMIN
   //#define ENDSTOPPULLDOWN_YMIN
@@ -956,7 +855,6 @@
   //#define ENDSTOPPULLDOWN_JMAX
   //#define ENDSTOPPULLDOWN_KMAX
   //#define ENDSTOPPULLDOWN_ZMIN_PROBE
->>>>>>> 2.0.x
 #endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
@@ -2338,12 +2236,8 @@
 //
 // Add individual axis homing items (Home X, Home Y, and Home Z) to the LCD menu.
 //
-<<<<<<< HEAD
-#define INDIVIDUAL_AXIS_HOMING_MENU
-=======
 //#define INDIVIDUAL_AXIS_HOMING_MENU
 //#define INDIVIDUAL_AXIS_HOMING_SUBMENU
->>>>>>> 2.0.x
 
 //
 // SPEAKER/BUZZER
@@ -2909,18 +2803,11 @@
 //#define TFT_INTERFACE_FSMC
 //#define TFT_INTERFACE_SPI
 
-<<<<<<< HEAD
-// TFT Resolution. Enable one of the following options:
-//#define TFT_RES_320x240
-//#define TFT_RES_480x272
-//#define TFT_RES_480x320
-=======
   // TFT Resolution. Enable one of the following options:
   //#define TFT_RES_320x240
   //#define TFT_RES_480x272
   //#define TFT_RES_480x320
   //#define TFT_RES_1024x600
->>>>>>> 2.0.x
 #endif
 
 /**
@@ -2984,13 +2871,9 @@
 #define BUTTON_DELAY_EDIT 50  // (ms) Button repeat delay for edit screens
 #define BUTTON_DELAY_MENU 250 // (ms) Button repeat delay for menus
 
-<<<<<<< HEAD
-#define TOUCH_SCREEN_CALIBRATION
-=======
   //#define TOUCH_IDLE_SLEEP 300 // (secs) Turn off the TFT backlight if set (5mn)
 
   #define TOUCH_SCREEN_CALIBRATION
->>>>>>> 2.0.x
 
 //#define TOUCH_CALIBRATION_X 12316
 //#define TOUCH_CALIBRATION_Y -8981
@@ -3158,11 +3041,7 @@
 //#define DEACTIVATE_SERVOS_AFTER_MOVE
 
 // Edit servo angles with M281 and save to EEPROM with M500
-<<<<<<< HEAD
-//#define EDITABLE_SERVO_ANGLES
-=======
 //#define EDITABLE_SERVO_ANGLES
 
 // Disable servo with M282 to reduce power consumption, noise, and heat when not in use
 //#define SERVO_DETACH_GCODE
->>>>>>> 2.0.x
